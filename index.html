@@ -3,38 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarun Tomar | Tech Portfolio</title>
+    <title>Tarun Tomar | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #00d2ff; --secondary: #3a7bd5; --bg: #0f172a; }
-        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: white; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-        .container { background: #1e293b; padding: 3rem; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); text-align: center; max-width: 500px; border: 1px solid #334155; }
-        h1 { margin: 0; font-size: 2.5rem; background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p { color: #94a3b8; line-height: 1.6; margin: 1rem 0; }
-        .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 1.5rem; }
-        .badge { background: #334155; padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; color: var(--primary); }
-        .btn { display: inline-block; margin-top: 2rem; padding: 12px 24px; background: linear-gradient(to right, var(--primary), var(--secondary)); color: white; text-decoration: none; border-radius: 12px; font-weight: bold; transition: transform 0.2s; }
-        .btn:hover { transform: translateY(-3px); }
-        .footer-text { font-size: 0.75rem; color: #475569; margin-top: 2rem; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        /* CSS Variables for Auto Light/Dark Mode switching */
+        :root {
+            --bg: #09090b; --text: #fafafa; --text-muted: #a1a1aa;
+            --border: #27272a; --card-bg: transparent; --card-hover: #121214;
+            --btn-bg: #18181b; --nav-bg: rgba(9, 9, 11, 0.8);
+        }
+        body.light-mode {
+            --bg: #ffffff; --text: #09090b; --text-muted: #52525b;
+            --border: #e4e4e7; --card-bg: #f4f4f5; --card-hover: #fafafa;
+            --btn-bg: #f4f4f5; --nav-bg: rgba(255, 255, 255, 0.8);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+
+        /* Navbar */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; max-width: 900px; margin: 0 auto; position: sticky; top: 0; z-index: 100; }
+        nav.scrolled { background-color: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+        .logo { font-weight: 700; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { color: var(--text-muted); font-size: 0.9rem; }
+        .nav-links a:hover { color: var(--text); }
+        .theme-toggle { background: transparent; border: 1px solid var(--border); color: var(--text-muted); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; }
+
+        /* Main Container */
+        .container { max-width: 750px; margin: 60px auto; padding: 0 20px; }
+        .divider { height: 1px; background-color: var(--border); margin: 50px 0; }
+        .section-label { color: var(--text-muted); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 10px; }
+        h2 { font-size: 1.8rem; margin-bottom: 25px; }
+
+        /* Hero Section */
+        .profile-section { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .avatar { width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--border); }
+        .status { color: #22c55e; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
+        h1 { font-size: 2.8rem; margin-bottom: 10px; }
+        .bio { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; }
+        .action-buttons { display: flex; gap: 10px; }
+        .btn { display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); color: var(--text-muted); padding: 10px 15px; border-radius: 8px; }
+        .btn:hover { background-color: var(--btn-bg); color: var(--text); }
+
+        /* Cards Layout */
+        .card-list { display: flex; flex-direction: column; gap: 15px; }
+        .card { display: flex; gap: 15px; border: 1px solid var(--border); border-radius: 12px; padding: 20px; background-color: var(--card-bg); }
+        .card:hover { background-color: var(--card-hover); }
+        .card-icon { width: 45px; height: 45px; background-color: var(--btn-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+        .card-content { width: 100%; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; }
+        .card-header h3 { font-size: 1.1rem; }
+        .text-muted { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Skills Flex */
+        .skills-flex { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-badge { border: 1px solid var(--border); padding: 8px 15px; border-radius: 8px; font-size: 0.9rem; background-color: var(--card-bg); }
+
+        /* Footer */
+        footer { text-align: center; margin-top: 60px; padding-bottom: 40px; color: var(--text-muted); }
+        
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: 0.6s ease-out; }
+        .show { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Tarun Tomar</h1>
-        <p>B.Tech Computer Science @ IILM University</p>
-        <p>Blockchain Certified & Open Source Contributor</p>
-        
-        <div class="badges">
-            <span class="badge">Blockchain+</span>
-            <span class="badge">C Programming</span>
-            <span class="badge">Web Development</span>
-            <span class="badge">GSoC '26 Aspirant</span>
-        </div>
 
-        <a href="https://github.com/TarunWorks" class="btn">View My Projects</a>
-        
-        <div class="footer-text">
-            Official Domain: <strong>taruntomar.tech</strong>
+    <nav>
+        <div class="logo">Tarun Tomar</div>
+        <div class="nav-links">
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <button class="theme-toggle"><i class="fa-regular fa-sun"></i></button>
         </div>
-    </div>
+    </nav>
+
+    <main class="container">
+        <header class="fade-in">
+            <div class="profile-section">
+                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Tarun" alt="Profile" class="avatar">
+                <div class="status"><i class="fa-solid fa-circle text-xs"></i> Available</div>
+            </div>
+            <h1>Tarun Tomar</h1>
+            <p class="bio">B.Tech CS @ IILM | Building intelligent systems with AI/ML, Python, and Blockchain.</p>
+            <div class="action-buttons">
+                <a href="https://github.com/TarunWorks" class="btn"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="mailto:tarun097563@gmail.com" class="btn"><i class="fa-regular fa-envelope"></i></a>
+            </div>
+        </header>
+
+        <div class="divider fade-in"></div>
+
+        <section id="experience" class="fade-in">
+            <p class="section-label">EXPERIENCE & EDUCATION</p>
+            <h2>My Background</h2>
+            <div class="card-list">
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div class="card-content">
+                        <div class="card-header"><h3>B.Tech Computer Science</h3> <span class="text-muted">2024 - 2028</span></div>
+                        <p class="text-muted">IILM University, Greater Noida</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-link"></i></div>
+                    <div class="card-content">
+                        <div class="card-header"><h3>Blockchain+ Executive</h3> <span class="text-muted">2023</span></div>
+                        <p class="text-muted">AI Certs - Core blockchain architecture.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider fade-in"></div>
+
+        <section id="projects" class="fade-in">
+            <p class="section-label">WORK</p>
+            <h2>Featured Projects</h2>
+            <div class="card-list">
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-brain"></i></div>
+                    <div class="card-content">
+                        <div class="card-header"><h3>Improving CNN Accuracy</h3> <a href="#" class="text-muted"><i class="fa-brands fa-github"></i></a></div>
+                        <p class="text-muted" style="margin-top: 5px;">Optimizing Convolutional Neural Networks using Python & ML.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-calculator"></i></div>
+                    <div class="card-content">
+                        <div class="card-header"><h3>Number System Converter</h3> <a href="#" class="text-muted"><i class="fa-brands fa-github"></i></a></div>
+                        <p class="text-muted" style="margin-top: 5px;">A C-based utility for binary, decimal, and hex conversions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider fade-in"></div>
+
+        <section id="skills" class="fade-in">
+            <p class="section-label">SKILLS</p>
+            <h2>What I use</h2>
+            <div class="skills-flex">
+                <div class="skill-badge"><i class="fa-brands fa-python" style="color: #3776AB;"></i> Python</div>
+                <div class="skill-badge"><i class="fa-solid fa-c" style="color: #A8B9CC;"></i> C Language</div>
+                <div class="skill-badge"><i class="fa-solid fa-brain" style="color: #FF6F00;"></i> Machine Learning</div>
+                <div class="skill-badge"><i class="fa-solid fa-link" style="color: #F7931A;"></i> Blockchain</div>
+                <div class="skill-badge"><i class="fa-brands fa-git-alt" style="color: #F05032;"></i> Git</div>
+                <div class="skill-badge"><i class="fa-brands fa-github"></i> GitHub</div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 Tarun Tomar | taruntomar.tech</p>
+        </footer>
+    </main>
+
+    <script>
+        // 1. Theme Toggle
+        const themeBtn = document.querySelector('.theme-toggle');
+        const themeIcon = themeBtn.querySelector('i');
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            themeIcon.classList.toggle('fa-sun');
+            themeIcon.classList.toggle('fa-moon');
+        });
+
+        // 2. Sticky Navbar Blur
+        window.addEventListener('scroll', () => {
+            document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        // 3. Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // 4. Scroll Reveal Animation
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
