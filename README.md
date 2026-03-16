@@ -1,2 +1,4 @@
-# TarunWorks.github.io
+# TarunWorks
+TarunTomar.me
 TarunTomar.tech
+
