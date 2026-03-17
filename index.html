@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,135 +11,453 @@
 
         /* CSS Variables for Auto Light/Dark Mode switching */
         :root {
-            --bg: #09090b; --text: #fafafa; --text-muted: #a1a1aa;
-            --border: #27272a; --card-bg: transparent; --card-hover: #121214;
-            --btn-bg: #18181b; --nav-bg: rgba(9, 9, 11, 0.8);
-        }
-        body.light-mode {
-            --bg: #ffffff; --text: #09090b; --text-muted: #52525b;
-            --border: #e4e4e7; --card-bg: #f4f4f5; --card-hover: #fafafa;
-            --btn-bg: #f4f4f5; --nav-bg: rgba(255, 255, 255, 0.8);
+            --bg: #09090b;
+            --text: #fafafa;
+            --text-muted: #a1a1aa;
+            --border: #27272a;
+            --card-bg: transparent;
+            --card-hover: #121214;
+            --btn-bg: #18181b;
+            --nav-bg: rgba(9, 9, 11, 0.8);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
-        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
-        a { text-decoration: none; color: inherit; }
+        body.light-mode {
+            --bg: #ffffff;
+            --text: #09090b;
+            --text-muted: #52525b;
+            --border: #e4e4e7;
+            --card-bg: #f4f4f5;
+            --card-hover: #fafafa;
+            --btn-bg: #f4f4f5;
+            --nav-bg: rgba(255, 255, 255, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 20% 50%, rgba(34, 197, 94, 0.04) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 20%, rgba(59, 130, 246, 0.03) 0%, transparent 50%);
+            animation: glowMove 15s ease-in-out infinite alternate;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes glowMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-5%, 3%); }
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
         /* Navbar */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; max-width: 900px; margin: 0 auto; position: sticky; top: 0; z-index: 100; }
-        nav.scrolled { background-color: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
-        .logo { font-weight: 700; }
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { color: var(--text-muted); font-size: 0.9rem; }
-        .nav-links a:hover { color: var(--text); }
-        .theme-toggle { background: transparent; border: 1px solid var(--border); color: var(--text-muted); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav.scrolled {
+            background-color: rgba(9, 9, 11, 0.5);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
 
         /* Main Container */
-        .container { max-width: 750px; margin: 60px auto; padding: 0 20px; }
-        .divider { height: 1px; background-color: var(--border); margin: 50px 0; }
-        .section-label { color: var(--text-muted); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 10px; }
-        h2 { font-size: 1.8rem; margin-bottom: 25px; }
+        .container {
+            max-width: 750px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: var(--border);
+            margin: 35px 0;
+        }
+
+        .section-label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
 
         /* Hero Section */
-        .profile-section { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-        .avatar { width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--border); }
-        .status { color: #22c55e; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
-        h1 { font-size: 2.8rem; margin-bottom: 10px; }
-        .bio { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; }
-        .action-buttons { display: flex; gap: 10px; }
-        .btn { display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); color: var(--text-muted); padding: 10px 15px; border-radius: 8px; }
-        .btn:hover { background-color: var(--btn-bg); color: var(--text); }
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+        }
+
+        .status {
+            color: #22c55e;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+
+        .bio {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--btn-bg);
+            color: var(--text);
+        }
 
         /* Cards Layout */
-        .card-list { display: flex; flex-direction: column; gap: 15px; }
-        .card { display: flex; gap: 15px; border: 1px solid var(--border); border-radius: 12px; padding: 20px; background-color: var(--card-bg); }
-        .card:hover { background-color: var(--card-hover); }
-        .card-icon { width: 45px; height: 45px; background-color: var(--btn-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-        .card-content { width: 100%; }
-        .card-header { display: flex; justify-content: space-between; align-items: center; }
-        .card-header h3 { font-size: 1.1rem; }
-        .text-muted { color: var(--text-muted); font-size: 0.9rem; }
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card {
+            display: flex;
+            gap: 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            background-color: var(--card-bg);
+        }
+
+        .card:hover {
+            background-color: var(--card-hover);
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            background-color: var(--btn-bg);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .card-content {
+            width: 100%;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h3 {
+            font-size: 1.1rem;
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
 
         /* Skills Flex */
-        .skills-flex { display: flex; flex-wrap: wrap; gap: 10px; }
-        .skill-badge { border: 1px solid var(--border); padding: 8px 15px; border-radius: 8px; font-size: 0.9rem; background-color: var(--card-bg); }
+        .skills-category {
+            margin-bottom: 20px;
+        }
+
+        .skills-category h3 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .skills-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-badge {
+            border: 1px solid var(--border);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            background-color: var(--card-bg);
+        }
+
+        /* Open Source */
+        .os-tag {
+            display: inline-block;
+            background-color: #2ea44f;
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
 
         /* Footer */
-        footer { text-align: center; margin-top: 60px; padding-bottom: 40px; color: var(--text-muted); }
-        
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-bottom: 40px;
+            color: var(--text-muted);
+        }
+
         /* Animations */
-        .fade-in { opacity: 0; transform: translateY(20px); transition: 0.6s ease-out; }
-        .show { opacity: 1; transform: translateY(0); }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.6s ease-out;
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
+
 <body>
+
+    <canvas id="particles" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
 
     <nav>
         <div class="logo">Tarun Tomar</div>
         <div class="nav-links">
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
+            <a href="#about">About</a>
             <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#opensource">Open Source</a>
+            <a href="#direction">Direction</a>
+            <a href="#contact">Contact</a>
             <button class="theme-toggle"><i class="fa-regular fa-sun"></i></button>
         </div>
     </nav>
 
     <main class="container">
-        <header class="fade-in">
+        <!-- Hero Section -->
+        <header id="hero" class="fade-in">
             <div class="profile-section">
                 <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Tarun" alt="Profile" class="avatar">
-                <div class="status"><i class="fa-solid fa-circle text-xs"></i> Available</div>
+                <div class="status"><i class="fa-solid fa-circle" style="font-size: 0.5rem;"></i> Available</div>
             </div>
             <h1>Tarun Tomar</h1>
-            <p class="bio">B.Tech CS @ IILM | Building intelligent systems with AI/ML, Python, and Blockchain.</p>
+            <p class="bio">
+                Computer Science student at IILM University, Greater Noida.<br>
+                Focused on backend development, AI, and open-source.<br>
+                Actively building real-world projects and contributing to open-source.
+            </p>
             <div class="action-buttons">
-                <a href="https://github.com/TarunWorks" class="btn"><i class="fa-brands fa-github"></i></a>
-                <a href="#" class="btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://github.com/TarunWorks" class="btn" target="_blank"><i
+                        class="fa-brands fa-github"></i></a>
+                <a href="https://linkedin.com/in/tarun-tomar-916402358" class="btn" target="_blank"><i
+                        class="fa-brands fa-linkedin-in"></i></a>
                 <a href="mailto:tarun097563@gmail.com" class="btn"><i class="fa-regular fa-envelope"></i></a>
             </div>
         </header>
 
         <div class="divider fade-in"></div>
 
-        <section id="experience" class="fade-in">
-            <p class="section-label">EXPERIENCE & EDUCATION</p>
-            <h2>My Background</h2>
-            <div class="card-list">
-                <div class="card">
-                    <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                    <div class="card-content">
-                        <div class="card-header"><h3>B.Tech Computer Science</h3> <span class="text-muted">2024 - 2028</span></div>
-                        <p class="text-muted">IILM University, Greater Noida</p>
-                    </div>
+        <!-- About Section -->
+        <section id="about" class="fade-in">
+            <p class="section-label">ABOUT</p>
+            <h2>Who am I?</h2>
+            <p style="color: var(--text-muted); line-height: 1.8;">
+                I am currently learning Python, Machine Learning, and backend development.
+                I am exploring open-source development and working towards contributing
+                to real-world projects, especially in AI-related systems.<br><br>
+                My goal is to build strong fundamentals and gain practical experience
+                through projects and open-source contributions.
+            </p>
+        </section>
+
+        <div class="divider fade-in"></div>
+
+        <!-- Skills Section -->
+        <section id="skills" class="fade-in">
+            <p class="section-label">SKILLS</p>
+            <h2>What I use</h2>
+
+            <div class="skills-category">
+                <h3>Programming</h3>
+                <div class="skills-flex">
+                    <div class="skill-badge"><i class="fa-brands fa-python" style="color: #3776AB;"></i> Python</div>
+                    <div class="skill-badge"><i class="fa-solid fa-c" style="color: #A8B9CC;"></i> C</div>
                 </div>
-                <div class="card">
-                    <div class="card-icon"><i class="fa-solid fa-link"></i></div>
-                    <div class="card-content">
-                        <div class="card-header"><h3>Blockchain+ Executive</h3> <span class="text-muted">2023</span></div>
-                        <p class="text-muted">AI Certs - Core blockchain architecture.</p>
-                    </div>
+            </div>
+
+            <div class="skills-category">
+                <h3>Technologies</h3>
+                <div class="skills-flex">
+                    <div class="skill-badge"><i class="fa-solid fa-server" style="color: #3b82f6;"></i> Backend
+                        Development (Learning)</div>
+                    <div class="skill-badge"><i class="fa-solid fa-brain" style="color: #FF6F00;"></i> Machine Learning (Learning)</div>
+                    <div class="skill-badge"><i class="fa-brands fa-linux" style="color: #FCC624;"></i> Linux</div>
+                </div>
+            </div>
+
+            <div class="skills-category">
+                <h3>Tools</h3>
+                <div class="skills-flex">
+                    <div class="skill-badge"><i class="fa-solid fa-code" style="color: #007ACC;"></i> VS Code</div>
+                    <div class="skill-badge"><i class="fa-brands fa-git-alt" style="color: #F05032;"></i> Git</div>
+                    <div class="skill-badge"><i class="fa-brands fa-github"></i> GitHub</div>
+                </div>
+            </div>
+
+            <div class="skills-category">
+                <h3>Interests</h3>
+                <div class="skills-flex">
+                    <div class="skill-badge"><i class="fa-solid fa-robot" style="color: #eab308;"></i> AI</div>
+                    <div class="skill-badge"><i class="fa-solid fa-brain" style="color: #FF6F00;"></i> Machine Learning
+                        (Learning)</div>
+                    <div class="skill-badge"><i class="fa-solid fa-code-pull-request" style="color: #22c55e;"></i> Open
+                        Source</div>
                 </div>
             </div>
         </section>
 
         <div class="divider fade-in"></div>
 
+        <!-- Projects Section -->
         <section id="projects" class="fade-in">
             <p class="section-label">WORK</p>
             <h2>Featured Projects</h2>
             <div class="card-list">
                 <div class="card">
-                    <div class="card-icon"><i class="fa-solid fa-brain"></i></div>
+                    <div class="card-icon"><i class="fa-solid fa-network-wired"></i></div>
                     <div class="card-content">
-                        <div class="card-header"><h3>Improving CNN Accuracy</h3> <a href="#" class="text-muted"><i class="fa-brands fa-github"></i></a></div>
-                        <p class="text-muted" style="margin-top: 5px;">Optimizing Convolutional Neural Networks using Python & ML.</p>
+                        <div class="card-header">
+                            <h3>Improving CNN Model Accuracy</h3> <a href="https://github.com/TarunWorks/project-name" target="_blank"
+                                class="text-muted"><i class="fa-brands fa-github"></i></a>
+                        </div>
+
+                        <ul class="text-muted" style="margin-top: 10px; padding-left: 20px; font-size: 0.9rem;">
+                            <li>Built and tested basic CNN models using Python</li>
+                            <li>Explored how training parameters affect model accuracy</li>
+                            <li>Learned fundamentals of neural networks and model optimization</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-icon"><i class="fa-solid fa-calculator"></i></div>
                     <div class="card-content">
-                        <div class="card-header"><h3>Number System Converter</h3> <a href="#" class="text-muted"><i class="fa-brands fa-github"></i></a></div>
-                        <p class="text-muted" style="margin-top: 5px;">A C-based utility for binary, decimal, and hex conversions.</p>
+                        <div class="card-header">
+                            <h3>Number System Converter (C CLI Tool)</h3> <a href="https://github.com/TarunWorks/project-name"
+                                target="_blank" class="text-muted"><i class="fa-brands fa-github"></i></a>
+                        </div>
+
+                        <ul class="text-muted" style="margin-top: 10px; padding-left: 20px; font-size: 0.9rem;">
+                            <li>Developed a command-line tool in C</li>
+                            <li>Implemented conversion logic between binary, decimal, and hexadecimal</li>
+                            <li>Strengthened understanding of number systems and low-level programming</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-users"></i></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>SIH 2025 Internal Hackathon</h3> <span class="text-muted">Team Lead</span>
+                        </div>
+                        <p class="text-muted" style="margin-top: 5px; font-size: 0.85rem;">
+                            Led team <strong>Code Crew</strong> in my 1st semester and proudly presented our project
+                            <strong>AlumniConnect</strong>. Ranked among top teams out of 222+ participants and
+                            shortlisted to the waitlist for nationals. A great milestone that gave us exposure,
+                            confidence, and motivation to build more solutions that matter.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -146,21 +465,123 @@
 
         <div class="divider fade-in"></div>
 
-        <section id="skills" class="fade-in">
-            <p class="section-label">SKILLS</p>
-            <h2>What I use</h2>
-            <div class="skills-flex">
-                <div class="skill-badge"><i class="fa-brands fa-python" style="color: #3776AB;"></i> Python</div>
-                <div class="skill-badge"><i class="fa-solid fa-c" style="color: #A8B9CC;"></i> C Language</div>
-                <div class="skill-badge"><i class="fa-solid fa-brain" style="color: #FF6F00;"></i> Machine Learning</div>
-                <div class="skill-badge"><i class="fa-solid fa-link" style="color: #F7931A;"></i> Blockchain</div>
-                <div class="skill-badge"><i class="fa-brands fa-git-alt" style="color: #F05032;"></i> Git</div>
-                <div class="skill-badge"><i class="fa-brands fa-github"></i> GitHub</div>
+        <!-- Open Source Section -->
+        <section id="opensource" class="fade-in">
+            <p class="section-label">COMMUNITY</p>
+            <h2>Open Source</h2>
+            <div class="card-list">
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-code-fork"></i></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>Contributor – Sugar Labs</h3> <span class="text-muted" style="white-space: nowrap;">Currently</span>
+                        </div>
+                        <span class="os-tag"><i class="fa-solid fa-star"></i> GSoC Aspirant</span>
+                        <p class="text-muted" style="margin-top: 5px;">
+                            Exploring the Sugar Labs Speak AI project and understanding its architecture.<br>
+                            Currently preparing a proposal for Google Summer of Code.<br>
+                            Reading issues and understanding project structure. Preparing first contribution (PR).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider fade-in"></div>
+
+        <!-- GitHub Activity Section -->
+        <section id="github" class="fade-in">
+            <p class="section-label">ACTIVITY</p>
+            <h2>GitHub</h2>
+            <a href="https://github.com/TarunWorks" target="_blank" style="display: block;">
+                <img src="https://github-readme-stats.vercel.app/api?username=TarunWorks&show_icons=true&theme=transparent&hide_border=true&title_color=fafafa&text_color=a1a1aa&icon_color=22c55e"
+                    alt="GitHub Stats" style="width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+            </a>
+            <a href="https://github.com/TarunWorks" target="_blank" style="display: block; margin-top: 15px;">
+                <img src="https://github-readme-streak-stats.herokuapp.com/?user=TarunWorks&theme=transparent&hide_border=true&ring=22c55e&fire=22c55e&currStreakLabel=fafafa&sideLabels=a1a1aa&dates=a1a1aa&currStreakNum=fafafa&sideNums=fafafa"
+                    alt="GitHub Streak" style="width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+            </a>
+        </section>
+
+        <div class="divider fade-in"></div>
+
+        <!-- Direction Section (merged) -->
+        <section id="direction" class="fade-in">
+            <p class="section-label">DIRECTION</p>
+            <h2>What I'm Working Towards</h2>
+            <p style="color: var(--text-muted); line-height: 1.8;">
+                I am currently focused on learning Python, backend development, and exploring open-source contributions.
+                <br><br>
+                I am preparing for Google Summer of Code (GSoC) and actively working on building real-world projects.
+                <br><br>
+                I am also interested in research-oriented opportunities such as DRDO internships, particularly in AI,
+                embedded systems, and secure software development.
+            </p>
+        </section>
+
+        <div class="divider fade-in"></div>
+
+        <!-- Education Section -->
+        <section id="education" class="fade-in">
+            <p class="section-label">BACKGROUND</p>
+            <h2>Education & Certifications</h2>
+            <div class="card-list">
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>B.Tech Computer Science</h3> <span class="text-muted">2025 - 2029</span>
+                        </div>
+                        <p class="text-muted" style="margin-top: 5px;">Pursuing comprehensive studies in software
+                            engineering, algorithms, and distributed systems.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-link"></i></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>Blockchain Executive Certification</h3> <span class="text-muted">2025</span>
+                        </div>
+                        <p class="text-muted" style="margin-top: 5px;"><strong>AI Certs</strong> &mdash; Studied core
+                            blockchain architecture, distributed systems, and fundamentals of decentralized
+                            technologies. <br><a
+                                href="https://aicertswpcdn.blob.core.windows.net/certs365-live/images/1758621919088_c674562f8858.png"
+                                target="_blank"
+                                style="color: #2ea44f; font-weight: 500; font-size: 0.85rem; text-decoration: underline;"><i
+                                    class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i> View
+                                Certificate</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider fade-in"></div>
+
+        <!-- Contact Section -->
+        <section id="contact" class="fade-in">
+            <p class="section-label">GET IN TOUCH</p>
+            <h2>Contact</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Feel free to reach out for exciting opportunities,
+                open-source collaborations, or just to say hi!</p>
+            <div class="action-buttons" style="flex-wrap: wrap;">
+                <a href="mailto:tarun097563@gmail.com" class="btn"><i class="fa-regular fa-envelope"></i>
+                    tarun097563@gmail.com</a>
+                <a href="https://github.com/TarunWorks" class="btn" target="_blank"><i class="fa-brands fa-github"></i>
+                    GitHub</a>
+                <a href="https://linkedin.com/in/tarun-tomar-916402358" class="btn" target="_blank"><i class="fa-brands fa-linkedin-in"></i>
+                    LinkedIn</a>
             </div>
         </section>
 
         <footer>
-            <p>© 2026 Tarun Tomar | taruntomar.tech</p>
+            <p style="display: flex; align-items: center; justify-content: center; gap: 15px;">
+                <span>© 2026 Tarun Tomar</span>
+                <span style="color: var(--border);">|</span>
+                <span style="display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-regular fa-eye"></i>
+                    <span id="visitorCount">0</span> visits
+                </span>
+            </p>
         </footer>
     </main>
 
@@ -181,7 +602,7 @@
 
         // 3. Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
             });
@@ -190,13 +611,75 @@
         // 4. Scroll Reveal Animation
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-                if(entry.isIntersecting) {
+                if (entry.isIntersecting) {
                     entry.target.classList.add('show');
                     observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // 5. Visitor Counter
+        (function() {
+            const el = document.getElementById('visitorCount');
+            // Use localStorage for simple page-view tracking
+            let count = parseInt(localStorage.getItem('tt_visits') || '0');
+            count++;
+            localStorage.setItem('tt_visits', count);
+            el.textContent = count;
+
+            // When deployed, fetch from API for real count
+            fetch('https://visitor-badge.laobi.icu/badge?page_id=taruntomar.portfolio&format=json')
+                .then(r => r.json())
+                .then(data => {
+                    if (data && data.value) el.textContent = data.value;
+                })
+                .catch(() => {}); // fallback to localStorage count
+        })();
+
+        // 6. Floating Particles Background
+        (function() {
+            const canvas = document.getElementById('particles');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const count = 35;
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 1.5 + 0.5,
+                    speedX: (Math.random() - 0.5) * 0.3,
+                    speedY: -(Math.random() * 0.3 + 0.1),
+                    opacity: Math.random() * 0.3 + 0.05
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    if (p.y < -10) { p.y = canvas.height + 10; p.x = Math.random() * canvas.width; }
+                    if (p.x < -10) p.x = canvas.width + 10;
+                    if (p.x > canvas.width + 10) p.x = -10;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                    ctx.fill();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
     </script>
 </body>
+
 </html>
